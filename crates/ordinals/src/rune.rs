@@ -49,7 +49,7 @@ impl Rune {
         Network::Bitcoin => 4,
         Network::Regtest => 0,
         Network::Signet => 0,
-        Network::Testnet => 12,
+        Network::Testnet => 0,
         _ => 0,
       }
   }
