@@ -73,7 +73,7 @@ impl Chain {
   pub(crate) fn join_with_data_dir(self, data_dir: impl AsRef<Path>) -> PathBuf {
     match self {
       Self::Mainnet => data_dir.as_ref().to_owned(),
-      Self::Testnet => data_dir.as_ref().join("testnet3"),
+      Self::Testnet => data_dir.as_ref().join("testnet4"),
       Self::Signet => data_dir.as_ref().join("signet"),
       Self::Regtest => data_dir.as_ref().join("regtest"),
     }
@@ -100,7 +100,7 @@ impl Display for Chain {
         Self::Mainnet => "mainnet",
         Self::Regtest => "regtest",
         Self::Signet => "signet",
-        Self::Testnet => "testnet",
+        Self::Testnet => "testnet4",
       }
     )
   }
@@ -114,7 +114,7 @@ impl FromStr for Chain {
       "mainnet" => Ok(Self::Mainnet),
       "regtest" => Ok(Self::Regtest),
       "signet" => Ok(Self::Signet),
-      "testnet" => Ok(Self::Testnet),
+      "testnet4" => Ok(Self::Testnet),
       _ => Err(SnafuError::InvalidChain {
         chain: s.to_string(),
       }),
@@ -131,7 +131,7 @@ mod tests {
     assert_eq!("mainnet".parse::<Chain>().unwrap(), Chain::Mainnet);
     assert_eq!("regtest".parse::<Chain>().unwrap(), Chain::Regtest);
     assert_eq!("signet".parse::<Chain>().unwrap(), Chain::Signet);
-    assert_eq!("testnet".parse::<Chain>().unwrap(), Chain::Testnet);
+    assert_eq!("testnet4".parse::<Chain>().unwrap(), Chain::Testnet);
     assert_eq!(
       "foo".parse::<Chain>().unwrap_err().to_string(),
       "Invalid chain `foo`"

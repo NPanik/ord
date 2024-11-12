@@ -431,7 +431,7 @@ impl Settings {
         Ok(blockchain_info) => {
           break match blockchain_info.chain.to_string().as_str() {
             "bitcoin" => Chain::Mainnet,
-            "testnet" => Chain::Testnet,
+            "testnet4" => Chain::Testnet,
             "regtest" => Chain::Regtest,
             "signet" => Chain::Signet,
             other => bail!("Bitcoin RPC server on unknown chain: {other}"),
@@ -683,7 +683,7 @@ mod tests {
 
     assert_eq!(
       settings.bitcoin_rpc_client(None).unwrap_err().to_string(),
-      "Bitcoin RPC server is on testnet but ord is on mainnet"
+      "Bitcoin RPC server is on testnet4 but ord is on mainnet"
     );
   }
 
@@ -844,17 +844,17 @@ mod tests {
     check_network_alias(
       "test",
       if cfg!(windows) {
-        r"ord\testnet3"
+        r"ord\testnet4"
       } else {
-        "ord/testnet3"
+        "ord/testnet4"
       },
     );
     check_network_alias(
-      "testnet",
+      "testnet4",
       if cfg!(windows) {
-        r"ord\testnet3"
+        r"ord\testnet4"
       } else {
-        "ord/testnet3"
+        "ord/testnet4"
       },
     );
   }
@@ -871,9 +871,9 @@ mod tests {
     assert_eq!(parse(&["--regtest"]).chain(), Chain::Regtest);
     assert_eq!(parse(&["-r"]).chain(), Chain::Regtest);
 
-    Arguments::try_parse_from(["ord", "--testnet", "--chain", "signet", "index", "update"])
+    Arguments::try_parse_from(["ord", "--testnet4", "--chain", "signet", "index", "update"])
       .unwrap_err();
-    assert_eq!(parse(&["--testnet"]).chain(), Chain::Testnet);
+    assert_eq!(parse(&["--testnet4"]).chain(), Chain::Testnet);
     assert_eq!(parse(&["-t"]).chain(), Chain::Testnet);
   }
 
